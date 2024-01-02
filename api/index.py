@@ -43,7 +43,3 @@ def create_endpoint():
         attachment_filename='created.docx',
         mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
-
-@app.route('/')
-def home():
-    return 'Hello, World!'
