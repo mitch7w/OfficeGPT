@@ -1,28 +1,17 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+# OfficeGPT
+## Creates Word, Powerpoint and Excel files for you automatically - just say what you want and out pops a pretty
+document!
 
-# Flask + Vercel
+- New venv with Python version compatabile with docx library ✅
+- Experiment with prompts for creating using docx library else provide api docs in prompt or make wrappers around docx
+functions for openai to call ✅
+- Hook up Flask webserver functions for creating docs with Vue frontend (use template maybe)
 
-This example shows how to use Flask 3 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
-
-## Demo
-
-https://flask-python-template.vercel.app/
-
-## How it Works
-
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
-
-## Running Locally
-
-```bash
-npm i -g vercel
-vercel dev
-```
-
-Your Flask application is now available at `http://localhost:3000`.
-
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask3&demo-title=Flask%203%20%2B%20Vercel&demo-description=Use%20Flask%203%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask3-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+-Creates headings, tables, paragraphs, page numbers with API ✅
+-Start with basic PPX, Excel and Word files
+-Fills in filler text with GPT-generated text based on system of prompts
+-System of prompts build up a little knowledge base particular to the task - essay about new product earings or Excel
+doc of earnings
+-Simple text front-end and out spits document
+-Document viewer to see progress of document
+-Advertise + show people who might be interested - DRS, Kate, Derryn
