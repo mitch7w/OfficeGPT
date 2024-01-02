@@ -42,6 +42,6 @@ def create_endpoint():
     return send_file(
         doc_buffer,
         as_attachment=True,
-        attachment_filename='created.docx',
+        download_name='created.docx',
         mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
