@@ -71,28 +71,26 @@ def create_endpoint():
     document_instructions = request.args.get('document_instructions', default='', type=str)
     selected_product = request.args.get('selected_product', default='', type=str)
 
-    download_name = None
-    mimetype = None
-    doc_buffer = None
+    selected_download_name = None
+    selected_mimetype = None
+    selected_doc_buffer = None
 
     # create the document using the correct function and send it back to the front-end
     if(selected_product == "Word"):
-        doc_buffer = create_docx(document_instructions) # Generate the Word document
-        download_name='created.docx'
-        mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        selected_doc_buffer = create_docx(document_instructions) # Generate the Word document
+        selected_download_name='created.docx'
+        selected_mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     elif(selected_product == "Excel"):
-        doc_buffer = create_excel(document_instructions) # Generate the Word document
-        download_name='created.xlsx',
-        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        selected_doc_buffer = create_excel(document_instructions) # Generate the Word document
+        selected_download_name='created.xlsx',
+        selected_mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     elif(selected_product == "PowerPoint"):
-        doc_buffer = create_powerpoint(document_instructions) # Generate the Word document
-        download_name='created.pptx',
-        mimetype='application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        selected_doc_buffer = create_powerpoint(document_instructions) # Generate the Word document
+        selected_download_name='created.pptx',
+        selected_mimetype='application/vnd.openxmlformats-officedocument.presentationml.presentation'
 
-    print(download_name)
-    print(mimetype)
     return send_file(
-        doc_buffer,
+        selected_doc_buffer,
         as_attachment=True,
-        download_name=download_name,
-        mimetype=mimetype)
+        download_name=selected_download_name,
+        mimetype=selected_mimetype)
