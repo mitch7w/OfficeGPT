@@ -26,7 +26,7 @@ def openai_call(document_instructions, system_instructions):
     return completion.choices[0].message.content
 
 # creates a docx file based on the OpenAI instructions
-def create_docx(document_instructions, selected_product):
+def create_docx(document_instructions):
         doc_buffer = io.BytesIO() # Save the created document to a BytesIO buffer
         document = Document()
         system_instructions = "You are a Word document expert and create word documents using only commands from the python-docx library. Please do not return any text - only the Python code. I have already imported the necessary libraries and setup the document with document = Document() as well as document.save() so do not include these commands in your response. So I do not need any functions or other code - only the python-docx commands for creating the specific items in user's document. Thank you."
