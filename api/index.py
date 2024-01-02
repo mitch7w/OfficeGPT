@@ -3,9 +3,11 @@ from docx import Document
 from openai import OpenAI
 from dotenv import load_dotenv
 import io
+import os
 
 # setup
 load_dotenv()
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 app = Flask(__name__)
 client = OpenAI()
 
