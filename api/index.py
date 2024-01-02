@@ -1,4 +1,5 @@
 from flask import Flask, send_file
+from flask_cors import CORS
 from docx import Document
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ import os
 load_dotenv()
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 client = OpenAI()
 
 def openai_call():
