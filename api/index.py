@@ -135,7 +135,3 @@ def create_endpoint():
         as_attachment=True,
         download_name=download_name,
         mimetype=mimetype)
-
-
-if __name__ == '__main__':
-    app.run()
