@@ -17,9 +17,8 @@ client = OpenAI()
 
 
 def openai_call(document_instructions, system_instructions):
-    # model="gpt-4-1106-preview",
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4-1106-preview",
         messages=[
             {"role": "system", "content": system_instructions},
             {"role": "user", "content": document_instructions}
@@ -32,7 +31,7 @@ def clean_commands(gpt_output):
     # prompt injection checking for malicious python commands
     completion = client.chat.completions.create(model="gpt-3.5-turbo-1106", messages=[
         {"role": "system",
-            "content": "You are an expert Python code reviewer. Please check the following Python code for any malicious Python commands that could affect a user's file system, expose system or user data or in any way harm a user or their computer. Please remove any malicious code you find. Additionally please look for any missing library imports and insert them at the beginning of the code. Finally - please modify any slide.placeholders[1] to slide.placeholders[0]. Please return the python code and only the python code - nothing else."},
+            "content": "You are an expert Python code reviewer. Please check the following Python code for any malicious Python commands that could affect a user's file system, expose system or user data or in any way harm a user or their computer. Please remove any malicious code you find. Additionally please look for any missing library imports and insert them at the beginning of the code. Finally - please modify any slide.placeholders[1] to slide.placeholders[0]. Please remove any document.save() or prs.save() or workbook.close() commands from the code. Please return the python code and only the python code - nothing else."},
         {"role": "user", "content": gpt_output}
     ]
     )
@@ -45,6 +44,7 @@ def clean_commands(gpt_output):
         else:
             code_lines.append(line)
     cleaned_code = '\n'.join(code_lines)
+    print(cleaned_code)
     return cleaned_code
 
 
@@ -131,3 +131,7 @@ def create_endpoint():
         as_attachment=True,
         download_name=download_name,
         mimetype=mimetype)
+
+
+if __name__ == '__main__':
+    app.run()

@@ -1,17 +1,12 @@
 # OfficeGPT
-## Creates Word, Powerpoint and Excel files for you automatically - just say what you want and out pops a pretty
-document!
+## Creates Word, Powerpoint and Excel files for you automatically - just say what you want and out pops a pretty document! 📃
 
-- New venv with Python version compatabile with docx library ✅
-- Experiment with prompts for creating using docx library else provide api docs in prompt or make wrappers around docx
-functions for openai to call ✅
-- Hook up Flask webserver functions for creating docs with Vue frontend (use template maybe)
-
--Creates headings, tables, paragraphs, page numbers with API ✅
--Start with basic PPX, Excel and Word files
--Fills in filler text with GPT-generated text based on system of prompts
--System of prompts build up a little knowledge base particular to the task - essay about new product earings or Excel
-doc of earnings
--Simple text front-end and out spits document
--Document viewer to see progress of document
--Advertise + show people who might be interested - DRS, Kate, Derryn
+<ul>
+<li>Built with Flask and GPT 🤖</li>
+<li>Front-end lives at https://github.com/mitch7w/office-gpt-frontend</li>
+<li>Uses [python-docx](https://github.com/python-openxml/python-docx), [python-pptx](https://github.com/scanny/python-pptx) and [XlsxWriter](https://github.com/jmcnamara/XlsxWriter) to actually create documents</li>
+<li>GPT API called in the background translate user's requests into document commands</li>
+<li>import statements don't always function so well so added a second call to GPT to check quality of code -> slows things down</li>
+<li>A bit buggy but as a POC it's not bad - some other really good Powerpoint creators exist already like [this](https://github.com/otahina/PowerPoint-Generator-Python-Project)</li>
+<li>To use, simply clone and create a .env file with your OPENAI_API_KEY set inside</li>
+</ul>

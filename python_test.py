@@ -1,51 +1,40 @@
-from pptx import Presentation
-from pptx.chart.data import CategoryChartData
-from pptx.enum.chart import XL_LEGEND_POSITION, XL_CHART_TYPE
-from pptx.util import Inches
-from pptx.enum.shapes import MSO_SHAPE
-from pptx.dml.color import RGBColor
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+import io
 
-# create Presentation object
-prs = Presentation()
+doc_buffer = io.BytesIO()  # Save the created document to a BytesIO buffer
+# Add a heading
+document = Document()
+heading = document.add_heading('Dinosaurs', level=1)
+font = heading.runs[0].font
+font.size = Pt(24)
+paragraph_format = heading.paragraph_format
+paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-# Add a title slide with the main topic
-slide_layout = prs.slide_layouts[0]
-slide = prs.slides.add_slide(slide_layout)
-title = slide.shapes.title
-subtitle = slide.placeholders[0]
-title.text = "National Parks of the USA"
-subtitle.text = "An overview of prominent national parks and their statistics"
+# Add the table with headers
+table = document.add_table(rows=1, cols=4)
+heading_cells = table.rows[0].cells
+heading_cells[0].text = 'Weight'
+heading_cells[1].text = 'Size'
+heading_cells[2].text = 'Ferocity'
+heading_cells[3].text = 'Colour'
 
-# Add a slide with a list of National Parks
-slide_layout = prs.slide_layouts[1]  # Title and Content layout
-slide = prs.slides.add_slide(slide_layout)
-title = slide.shapes.title
-title.text = "List of National Parks"
-content = slide.placeholders[0]
-content.text = "Yosemite\nYellowstone\nGrand Canyon\nZion\nGreat Smoky Mountains"
+# Add three rows to the table for dinosaur comparisons
+for _ in range(3):
+    row_cells = table.add_row().cells
+    row_cells[0].text = 'Value'
+    row_cells[1].text = 'Value'
+    row_cells[2].text = 'Value'
+    row_cells[3].text = 'Value'
 
-# Add a slide with a table of statistics
-slide_layout = prs.slide_layouts[5]  # Title Only layout
-slide = prs.slides.add_slide(slide_layout)
-title = slide.shapes.title
-title.text = "Statistics of National Parks"
+# Add three paragraphs
+for _ in range(3):
+    document.add_paragraph('This is a paragraph about a dinosaur.')
+    document.add_paragraph(
+        'It provides details such as habitat and behaviors.')
+    document.add_paragraph(
+        'Finally, it discusses the dinosaur’s legacy and any interesting facts.')
 
-rows, cols = 6, 4
-left = Inches(2)
-top = Inches(2)
-width = Inches(6)
-height = Inches(0.8)
-table = slide.shapes.add_table(rows, cols, left, top, width, height).table
-
-# Set column widths
-table.columns[0].width = Inches(2.0)
-table.columns[1].width = Inches(1.5)
-table.columns[2].width = Inches(1.5)
-table.columns[3].width = Inches(1.0)
-
-# Write header row
-table.cell(0, 0).text = 'National Park'
-table.cell(0, 1).text = 'Visitors'
-table.cell(0, 2).text = 'Area'
-table.cell(0, 3).text = 'Established'
-prs.save("hello.pptx")
+document.save("hello.docx")  # save doc to this buffer variable
+doc_buffer.seek(0)
