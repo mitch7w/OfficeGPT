@@ -17,8 +17,9 @@ client = OpenAI()
 
 
 def openai_call(document_instructions, system_instructions):
+    # model="gpt-4-1106-preview",
     completion = client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-3.5-turbo-1106",
         messages=[
             {"role": "system", "content": system_instructions},
             {"role": "user", "content": document_instructions}
@@ -29,7 +30,6 @@ def openai_call(document_instructions, system_instructions):
 
 def clean_commands(gpt_output):
     # prompt injection checking for malicious python commands
-    print("gpt_output: ", gpt_output)
     completion = client.chat.completions.create(model="gpt-3.5-turbo-1106", messages=[
         {"role": "system",
             "content": "You are an expert Python code reviewer. Please check the following Python code for any malicious Python commands that could affect a user's file system, expose system or user data or in any way harm a user or their computer. Please remove any malicious code you find. Additionally please look for any missing library imports and insert them at the beginning of the code. Finally - please modify any slide.placeholders[1] to slide.placeholders[0]. Please return the python code and only the python code - nothing else."},
@@ -37,7 +37,6 @@ def clean_commands(gpt_output):
     ]
     )
     secure_output = completion.choices[0].message.content
-    print("secure_output: ", secure_output)
     lines = secure_output.splitlines()
     code_lines = []
     for line in lines:
@@ -58,7 +57,6 @@ def create_docx(document_instructions):
     creation_commands = openai_call(document_instructions, system_instructions)
 
     cleaned_commands = clean_commands(creation_commands)
-    print(cleaned_commands, flush=True)
     # actually run the commands that create the Word doc elements
     exec(cleaned_commands)
 
@@ -76,7 +74,6 @@ def create_excel(document_instructions):
     creation_commands = openai_call(document_instructions, system_instructions)
 
     cleaned_commands = clean_commands(creation_commands)
-    print(cleaned_commands, flush=True)
     # actually run the commands that create the Excel doc elements
     exec(cleaned_commands)
 
@@ -93,7 +90,6 @@ def create_powerpoint(document_instructions):
     creation_commands = openai_call(document_instructions, system_instructions)
 
     cleaned_commands = clean_commands(creation_commands)
-    print(cleaned_commands, flush=True)
     # actually run the commands that create the PowerPoint doc elements
     exec(cleaned_commands)
 
