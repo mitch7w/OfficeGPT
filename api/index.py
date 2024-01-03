@@ -15,6 +15,8 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 client = OpenAI()
 
+# get python code for creating documents from GPT
+
 
 def openai_call(document_instructions, system_instructions):
     completion = client.chat.completions.create(
@@ -26,6 +28,8 @@ def openai_call(document_instructions, system_instructions):
     )
     return completion.choices[0].message.content
 
+# check for prompt injection and remove extraneous markup
+
 
 def clean_commands(gpt_output):
     # prompt injection checking for malicious python commands
@@ -35,6 +39,7 @@ def clean_commands(gpt_output):
         {"role": "user", "content": gpt_output}
     ]
     )
+    # remove markup
     secure_output = completion.choices[0].message.content
     lines = secure_output.splitlines()
     code_lines = []
@@ -64,6 +69,8 @@ def create_docx(document_instructions):
     doc_buffer.seek(0)
     return doc_buffer
 
+# create excel file
+
 
 def create_excel(document_instructions):
     excel_buffer = io.BytesIO()  # Save the Excel workbook to a BytesIO buffer
@@ -81,6 +88,8 @@ def create_excel(document_instructions):
     excel_buffer.seek(0)
     return excel_buffer
 
+# create powerpoint file
+
 
 def create_powerpoint(document_instructions):
     ppt_buffer = io.BytesIO()  # Create an in-memory buffer
@@ -96,6 +105,8 @@ def create_powerpoint(document_instructions):
     prs.save(ppt_buffer)
     ppt_buffer.seek(0)
     return ppt_buffer
+
+# create endpoint
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -133,5 +144,6 @@ def create_endpoint():
         mimetype=mimetype)
 
 
+# use if running locally
 if __name__ == '__main__':
     app.run()
